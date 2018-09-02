@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Cement</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
     <style>
-        table td {
-            padding: 5px;
-        }
         .input {
             width: 50px;
+        }
+        label {
+            font-weight: normal !important;
         }
     </style>
 </head>
 <body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <script type="text/javascript">
 
     var calculator = {
@@ -93,6 +97,8 @@
                 calculator.inputMConcrete.filter('[value=300]').prop('disabled', val === 300);
                 calculator.inputMConcrete.filter('[value=200]').prop('checked', true);
             });
+
+            calculator.calculate();
         }
     };
 
@@ -116,71 +122,82 @@
     });
 </script>
 
-<table>
-    <tr>
-        <td></td>
-        <td>кг</td>
-        <td>м3</td>
-    </tr>
-    <tr>
-        <td>Объем раствора для заливки</td>
-        <td><span id="output_concrete_mass"></span></td>
-        <td><span id="output_concrete_volume"></span></td>
-    </tr>
-    <tr>
-        <td>Количество цемента</td>
-        <td><span id="output_cement_mass"></span></td>
-        <td><span id="output_cement_volume"></span></td>
-    </tr>
-    <tr>
-        <td>Количество песка</td>
-        <td><span id="output_sand_mass"></span></td>
-        <td><span id="output_sand_volume"></span></td>
-    </tr>
-    <tr>
-        <td colspan="3">Количество материалов указано с учетом 25% усадки раствора.</td>
-    </tr>
-</table>
+<div class="container">
+    <h2>
+        Результаты расчета цементной стяжки пола
+    </h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">кг</th>
+            <th scope="col">м3</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <td colspan="3">Количество материалов указано с учетом 25% усадки раствора.</td>
+        </tr>
+        </tfoot>
+        <tbody>
+        <tr>
+            <td>Объем раствора для заливки</td>
+            <td><span id="output_concrete_mass"></span></td>
+            <td><span id="output_concrete_volume"></span></td>
+        </tr>
+        <tr>
+            <td>Количество цемента</td>
+            <td><span id="output_cement_mass"></span></td>
+            <td><span id="output_cement_volume"></span></td>
+        </tr>
+        <tr>
+            <td>Количество песка</td>
+            <td><span id="output_sand_mass"></span></td>
+            <td><span id="output_sand_volume"></span></td>
+        </tr>
+        </tbody>
+    </table>
 
-<h2>
-    Новый расчет цементной стяжки пола
-</h2>
-<table>
-    <tr>
-        <td><label for="length">Длина комнаты:</label></td>
-        <td><input type="text" id="length" class="input" maxlength="5" value="7"> метров</td>
-    </tr>
-    <tr>
-        <td><label for="width">Ширина комнаты:</label></td>
-        <td><input type="text" id="width" class="input" maxlength="5" value="5"> метров</td>
-    </tr>
-    <tr>
-        <td><label for="height">Толщина слоя:</label></td>
-        <td><input type="text" id="height" class="input" maxlength="3" value="80"> мм</td>
-    </tr>
-    <tr>
-        <td>Марка цемента:</td>
-        <td>
-            <input type="radio" name="m_cement" id="m_cement_300" value="300"><label for="m_cement_300"><span></span>300</label>&nbsp;&nbsp;
-            <input type="radio" name="m_cement" id="m_cement_400" value="400"><label for="m_cement_400"><span></span>400</label>&nbsp;&nbsp;
-            <input type="radio" name="m_cement" id="m_cement_500" value="500"><label for="m_cement_500"><span></span>500</label>&nbsp;&nbsp;
-            <input type="radio" name="m_cement" id="m_cement_600" value="600"><label for="m_cement_600"><span></span>600</label>&nbsp;&nbsp;
-        </td>
-    </tr>
-    <tr>
-        <td>Марка раствора:</td>
-        <td>
-            <input type="radio" name="m_concrete" id="m_concrete_100" value="100"><label for="m_concrete_100">100</label>&nbsp;&nbsp;
-            <input type="radio" name="m_concrete" id="m_concrete_150" value="150"><label for="m_concrete_150">150</label>&nbsp;&nbsp;
-            <input type="radio" name="m_concrete" id="m_concrete_200" value="200"><label for="m_concrete_200">200</label>&nbsp;&nbsp;
-            <input type="radio" name="m_concrete" id="m_concrete_300" value="300"><label for="m_concrete_300">300</label>&nbsp;&nbsp;
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2"><input id="calculate" type="button" value="Рассчитать количество цемента и песка"></td>
-    </tr>
-</table>
+    <h2>
+        Новый расчет цементной стяжки пола
+    </h2>
+    <table class="table table-striped">
+        <tr>
+            <td><label for="length">Длина комнаты:</label></td>
+            <td><input type="text" id="length" class="input" maxlength="5" value="7"> метров</td>
+        </tr>
+        <tr>
+            <td><label for="width">Ширина комнаты:</label></td>
+            <td><input type="text" id="width" class="input" maxlength="5" value="5"> метров</td>
+        </tr>
+        <tr>
+            <td><label for="height">Толщина слоя:</label></td>
+            <td><input type="text" id="height" class="input" maxlength="3" value="80"> мм</td>
+        </tr>
+        <tr>
+            <td>Марка цемента:</td>
+            <td>
+                <input type="radio" name="m_cement" id="m_cement_300" value="300"><label for="m_cement_300"><span></span>300</label>&nbsp;&nbsp;
+                <input type="radio" name="m_cement" id="m_cement_400" value="400"><label for="m_cement_400"><span></span>400</label>&nbsp;&nbsp;
+                <input type="radio" name="m_cement" id="m_cement_500" value="500"><label for="m_cement_500"><span></span>500</label>&nbsp;&nbsp;
+                <input type="radio" name="m_cement" id="m_cement_600" value="600"><label for="m_cement_600"><span></span>600</label>&nbsp;&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td>Марка раствора:</td>
+            <td>
+                <input type="radio" name="m_concrete" id="m_concrete_100" value="100"><label for="m_concrete_100">100</label>&nbsp;&nbsp;
+                <input type="radio" name="m_concrete" id="m_concrete_150" value="150"><label for="m_concrete_150">150</label>&nbsp;&nbsp;
+                <input type="radio" name="m_concrete" id="m_concrete_200" value="200"><label for="m_concrete_200">200</label>&nbsp;&nbsp;
+                <input type="radio" name="m_concrete" id="m_concrete_300" value="300"><label for="m_concrete_300">300</label>&nbsp;&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><input id="calculate" class="btn btn-primary" type="button" value="Рассчитать количество цемента и песка"></td>
+        </tr>
+    </table>
 
+</div>
 
 </body>
 </html>
