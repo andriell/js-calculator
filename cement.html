@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cement</title>
+    <style>
+        .input {
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+    var calculator = {
+        // для этого боъема м3 приведены пропорции в кг
+        propsV: 100000,
+        // Количество материалов указано с учетом 25% усадки раствора.
+        props: {
+            '300': {
+                '100': {'cement': 40625000, 'sand': 150000000},
+                '150': {'cement': 81250000, 'sand': 100000000},
+                '200': {'cement': 81250000, 'sand': 100000000}
+            },
+            '400': {
+                '100': {'cement': 32500000, 'sand': 160000000},
+                '150': {'cement': 54166661, 'sand': 133333340},
+                '200': {'cement': 54166661, 'sand': 133333340},
+                '300': {'cement': 81250000, 'sand': 100000000}
+            },
+            '500': {
+                '100': {'cement': 27083339, 'sand': 166666660},
+                '150': {'cement': 36111108, 'sand': 155555560},
+                '200': {'cement': 40625000, 'sand': 150000000},
+                '300': {'cement': 54166661, 'sand': 133333340}
+            },
+            '600': {
+                '100': {'cement': 23214279, 'sand': 171428580},
+                '150': {'cement': 32500000, 'sand': 160000000},
+                '200': {'cement': 32500000, 'sand': 160000000},
+                '300': {'cement': 40625000, 'sand': 150000000}
+            }
+        }
+    };
+
+
+</script>
+
+<table>
+    <tr>
+        <td>Объем раствора для заливки</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Количество цемента</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Количество песка</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td colspan="3">Количество материалов указано с учетом 25% усадки раствора.</td>
+    </tr>
+</table>
+
+<h2>
+    Новый расчет цементной стяжки пола
+</h2>
+<table>
+    <tr>
+        <td><label for="dlina">Длина комнаты:</label></td>
+        <td><input type="text" id="dlina" class="input" maxlength="5" value="7"> метров</td>
+    </tr>
+    <tr>
+        <td><label for="shirina">Ширина комнаты:</label></td>
+        <td><input type="text" id="shirina" class="input" maxlength="5" value="5"> метров</td>
+    </tr>
+    <tr>
+        <td><label for="tolshina">Толщина слоя:</label></td>
+        <td><input type="text" id="tolshina" class="input" maxlength="3" value="80"> мм</td>
+    </tr>
+    <tr>
+        <td>Марка цемента:</td>
+        <td>
+            <input type="radio" name="markats" id="markats300" value="300"><label for="markats300"><span></span>300</label>&nbsp;&nbsp;
+            <input type="radio" name="markats" id="markats400" value="400"><label for="markats400"><span></span>400</label>&nbsp;&nbsp;
+            <input type="radio" name="markats" id="markats500" value="500"><label for="markats500"><span></span>500</label>&nbsp;&nbsp;
+            <input type="radio" name="markats" id="markats600" value="600"><label for="markats600"><span></span>600</label>&nbsp;&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td>Марка раствора:</td>
+        <td>
+            <input type="radio" name="markars" id="markars100" value="100"><label for="markars100">100</label>&nbsp;&nbsp;
+            <input type="radio" name="markars" id="markars150" value="150"><label for="markars150">150</label>&nbsp;&nbsp;
+            <input type="radio" name="markars" id="markars200" value="200"><label for="markars200">200</label>&nbsp;&nbsp;
+            <input type="radio" name="markars" id="markars300" value="300"><label for="markars300">300</label>&nbsp;&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2"><input type="button" value="Рассчитать количество цемента и песка"></td>
+    </tr>
+</table>
+
+
+</body>
+</html>
