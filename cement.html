@@ -15,112 +15,112 @@
             font-weight: normal !important;
         }
     </style>
+
+    <script type="text/javascript">
+
+        var calculator = {
+            // для этого боъема м3 приведены пропорции в кг
+            propsV: 100000,
+            // Количество материалов указано с учетом 25% усадки раствора.
+            props: {
+                '300': {
+                    '100': {'cement': 40625000, 'sand': 150000000},
+                    '150': {'cement': 81250000, 'sand': 100000000},
+                    '200': {'cement': 81250000, 'sand': 100000000}
+                },
+                '400': {
+                    '100': {'cement': 32500000, 'sand': 160000000},
+                    '150': {'cement': 54166661, 'sand': 133333340},
+                    '200': {'cement': 54166661, 'sand': 133333340},
+                    '300': {'cement': 81250000, 'sand': 100000000}
+                },
+                '500': {
+                    '100': {'cement': 27083339, 'sand': 166666660},
+                    '150': {'cement': 36111108, 'sand': 155555560},
+                    '200': {'cement': 40625000, 'sand': 150000000},
+                    '300': {'cement': 54166661, 'sand': 133333340}
+                },
+                '600': {
+                    '100': {'cement': 23214279, 'sand': 171428580},
+                    '150': {'cement': 32500000, 'sand': 160000000},
+                    '200': {'cement': 32500000, 'sand': 160000000},
+                    '300': {'cement': 40625000, 'sand': 150000000}
+                }
+            },
+            buttonCalculate: null,
+
+            inputLength: null,
+            inputWidth: null,
+            inputHeight: null,
+            inputMCement: null,
+            inputMConcrete: null,
+
+            outputConcreteMass: null,
+            outputConcreteVolume: null,
+            outputCementMass: null,
+            outputCementVolume: null,
+            outputSandMass: null,
+            outputSandVolume: null,
+
+            calculate: function () {
+                // Объем в м3
+                var volume = parseFloat(calculator.inputLength.val().replace(',', '.')) * parseFloat(calculator.inputWidth.val().replace(',', '.')) * parseFloat(calculator.inputHeight.val().replace(',', '.')) / 1000;
+                calculator.outputConcreteVolume.html(volume);
+
+                var mCement = calculator.inputMCement.filter(':checked').val();
+                var mConcrete = calculator.inputMConcrete.filter(':checked').val();
+
+                var cementMass = calculator.props[mCement][mConcrete]['cement'] / calculator.propsV * volume;
+                calculator.outputCementMass.html(Math.round(cementMass));
+
+
+                var sandMass = calculator.props[mCement][mConcrete]['sand'] / calculator.propsV * volume;
+                calculator.outputSandMass.html(Math.round(sandMass));
+
+                calculator.outputConcreteMass.html(Math.round(cementMass + sandMass));
+            },
+
+            init: function () {
+                calculator.inputLength.on('change', calculator.calculate);
+                calculator.inputWidth.on('change', calculator.calculate);
+                calculator.inputHeight.on('change', calculator.calculate);
+                calculator.inputMCement.on('change', calculator.calculate);
+                calculator.inputMConcrete.on('change', calculator.calculate);
+                calculator.buttonCalculate.on('click', calculator.calculate);
+
+                calculator.inputMCement.filter('[value=500]').prop('checked', true);
+                calculator.inputMConcrete.filter('[value=200]').prop('checked', true);
+                calculator.inputMCement.on('change', function () {
+                    var val = parseInt(calculator.inputMCement.filter(':checked').val());
+                    calculator.inputMConcrete.filter('[value=300]').prop('disabled', val === 300);
+                    calculator.inputMConcrete.filter('[value=200]').prop('checked', true);
+                });
+
+                calculator.calculate();
+            }
+        };
+
+        jQuery(function () {
+            calculator.buttonCalculate = jQuery('#calculate');
+
+            calculator.inputLength = jQuery('#length');
+            calculator.inputWidth = jQuery('#width');
+            calculator.inputHeight = jQuery('#height');
+            calculator.inputMCement = jQuery('input[name=m_cement]');
+            calculator.inputMConcrete = jQuery('input[name=m_concrete]');
+
+            calculator.outputConcreteMass = jQuery('#output_concrete_mass');
+            calculator.outputConcreteVolume = jQuery('#output_concrete_volume');
+            calculator.outputCementMass = jQuery('#output_cement_mass');
+            calculator.outputCementVolume = jQuery('#output_cement_volume');
+            calculator.outputSandMass = jQuery('#output_sand_mass');
+            calculator.outputSandVolume = jQuery('#output_sand_volume');
+
+            calculator.init();
+        });
+    </script>
 </head>
 <body>
-
-<script type="text/javascript">
-
-    var calculator = {
-        // для этого боъема м3 приведены пропорции в кг
-        propsV: 100000,
-        // Количество материалов указано с учетом 25% усадки раствора.
-        props: {
-            '300': {
-                '100': {'cement': 40625000, 'sand': 150000000},
-                '150': {'cement': 81250000, 'sand': 100000000},
-                '200': {'cement': 81250000, 'sand': 100000000}
-            },
-            '400': {
-                '100': {'cement': 32500000, 'sand': 160000000},
-                '150': {'cement': 54166661, 'sand': 133333340},
-                '200': {'cement': 54166661, 'sand': 133333340},
-                '300': {'cement': 81250000, 'sand': 100000000}
-            },
-            '500': {
-                '100': {'cement': 27083339, 'sand': 166666660},
-                '150': {'cement': 36111108, 'sand': 155555560},
-                '200': {'cement': 40625000, 'sand': 150000000},
-                '300': {'cement': 54166661, 'sand': 133333340}
-            },
-            '600': {
-                '100': {'cement': 23214279, 'sand': 171428580},
-                '150': {'cement': 32500000, 'sand': 160000000},
-                '200': {'cement': 32500000, 'sand': 160000000},
-                '300': {'cement': 40625000, 'sand': 150000000}
-            }
-        },
-        buttonCalculate: null,
-
-        inputLength: null,
-        inputWidth: null,
-        inputHeight: null,
-        inputMCement: null,
-        inputMConcrete: null,
-
-        outputConcreteMass: null,
-        outputConcreteVolume: null,
-        outputCementMass: null,
-        outputCementVolume: null,
-        outputSandMass: null,
-        outputSandVolume: null,
-
-        calculate: function () {
-            // Объем в м3
-            var volume = parseFloat(calculator.inputLength.val().replace(',', '.')) * parseFloat(calculator.inputWidth.val().replace(',', '.')) * parseFloat(calculator.inputHeight.val().replace(',', '.')) / 1000;
-            calculator.outputConcreteVolume.html(volume);
-
-            var mCement = calculator.inputMCement.filter(':checked').val();
-            var mConcrete = calculator.inputMConcrete.filter(':checked').val();
-
-            var cementMass = calculator.props[mCement][mConcrete]['cement'] / calculator.propsV * volume;
-            calculator.outputCementMass.html(Math.round(cementMass));
-
-
-            var sandMass = calculator.props[mCement][mConcrete]['sand'] / calculator.propsV * volume;
-            calculator.outputSandMass.html(Math.round(sandMass));
-
-            calculator.outputConcreteMass.html(Math.round(cementMass + sandMass));
-        },
-
-        init: function () {
-            calculator.inputLength.on('change', calculator.calculate);
-            calculator.inputWidth.on('change', calculator.calculate);
-            calculator.inputHeight.on('change', calculator.calculate);
-            calculator.inputMCement.on('change', calculator.calculate);
-            calculator.inputMConcrete.on('change', calculator.calculate);
-            calculator.buttonCalculate.on('click', calculator.calculate);
-
-            calculator.inputMCement.filter('[value=500]').prop('checked', true);
-            calculator.inputMConcrete.filter('[value=200]').prop('checked', true);
-            calculator.inputMCement.on('change', function () {
-                var val = parseInt(calculator.inputMCement.filter(':checked').val());
-                calculator.inputMConcrete.filter('[value=300]').prop('disabled', val === 300);
-                calculator.inputMConcrete.filter('[value=200]').prop('checked', true);
-            });
-
-            calculator.calculate();
-        }
-    };
-
-    jQuery(function () {
-        calculator.buttonCalculate = jQuery('#calculate');
-
-        calculator.inputLength = jQuery('#length');
-        calculator.inputWidth = jQuery('#width');
-        calculator.inputHeight = jQuery('#height');
-        calculator.inputMCement = jQuery('input[name=m_cement]');
-        calculator.inputMConcrete = jQuery('input[name=m_concrete]');
-
-        calculator.outputConcreteMass = jQuery('#output_concrete_mass');
-        calculator.outputConcreteVolume = jQuery('#output_concrete_volume');
-        calculator.outputCementMass = jQuery('#output_cement_mass');
-        calculator.outputCementVolume = jQuery('#output_cement_volume');
-        calculator.outputSandMass = jQuery('#output_sand_mass');
-        calculator.outputSandVolume = jQuery('#output_sand_volume');
-
-        calculator.init();
-    });
-</script>
 
 <div class="container">
     <h2>
