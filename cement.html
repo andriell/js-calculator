@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>Cement</title>
     <style>
+        table td {
+            padding: 5px;
+        }
         .input {
             width: 50px;
         }
@@ -71,9 +74,16 @@
 
             var sandMass = calculator.props[mCement][mConcrete]['sand'] / calculator.propsV * volume;
             calculator.outputSandMass.html(Math.round(sandMass));
+
+            calculator.outputConcreteMass.html(Math.round(cementMass + sandMass));
         },
 
         init: function () {
+            calculator.inputLength.on('change', calculator.calculate);
+            calculator.inputWidth.on('change', calculator.calculate);
+            calculator.inputHeight.on('change', calculator.calculate);
+            calculator.inputMCement.on('change', calculator.calculate);
+            calculator.inputMConcrete.on('change', calculator.calculate);
             calculator.buttonCalculate.on('click', calculator.calculate);
 
             calculator.inputMCement.filter('[value=500]').prop('checked', true);
@@ -81,6 +91,7 @@
             calculator.inputMCement.on('change', function () {
                 var val = parseInt(calculator.inputMCement.filter(':checked').val());
                 calculator.inputMConcrete.filter('[value=300]').prop('disabled', val === 300);
+                calculator.inputMConcrete.filter('[value=200]').prop('checked', true);
             });
         }
     };
