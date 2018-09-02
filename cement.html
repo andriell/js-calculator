@@ -66,6 +66,8 @@
             outputSandMass: null,
             outputSandVolume: null,
             outputSandVolumeLiter: null,
+            outputRatioMass: null,
+            outputRatioVolume: null,
 
             calculate: function () {
                 // Объем в м3
@@ -89,10 +91,12 @@
                 calculator.outputSandVolume.html(Math.round(sandVolume * 10000) / 10000);
                 calculator.outputSandVolumeLiter.html(Math.round(sandVolume * 10000) / 10);
 
+                var ratioMass = sandMass / cementMass;
+                calculator.outputRatioMass.html('1 : ' + Math.round(ratioMass * 10) / 10);
+                var ratioVolume = sandVolume / cementVolume;
+                calculator.outputRatioVolume.html('1 : ' + Math.round(ratioVolume * 10) / 10);
 
                 calculator.outputConcreteMass.html(Math.round(cementMass + sandMass));
-
-
             },
 
             init: function () {
@@ -138,6 +142,8 @@
             calculator.outputSandMass = jQuery('#output_sand_mass');
             calculator.outputSandVolume = jQuery('#output_sand_volume');
             calculator.outputSandVolumeLiter = jQuery('#output_sand_volume_liter');
+            calculator.outputRatioMass = jQuery('#output_ratio_mass');
+            calculator.outputRatioVolume = jQuery('.output_ratio_volume');
 
             calculator.init();
         });
@@ -182,6 +188,13 @@
             <td><span id="output_sand_volume"></span></td>
             <td><span id="output_sand_volume_liter"></span></td>
         </tr>
+        <tr>
+            <td>Соотношение цемента и песка</td>
+            <td><span id="output_ratio_mass"></span></td>
+            <td><span class="output_ratio_volume"></span></td>
+            <td><span class="output_ratio_volume"></span></td>
+        </tr>
+
         </tbody>
     </table>
 
